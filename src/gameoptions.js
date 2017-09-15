@@ -8,49 +8,89 @@ var Six=false;
 var Seven=false;
 var Eight=false;
 var Nine=true;
-var SelectedNumbers=[1,2,3];
-
+var SelectedNumbers=[9];
+var Operators=['+'];
 var Plus=true;
 var Minus=false;
 var Times=false;
 var Division=false;
 //var maxnumber2=10;
 var volumen=0;
+var hintEnabled=false;
 
 var gameOptions = function(game){};
 
 gameOptions.prototype = {
   	create: function(game){
+		// fondo		
+		//background = this.game.add.image(0,0,"level");
+		//background.scale.set(1);
+  		
+  		// Botón de vidas
 		ButtonHeart = game.add.button(64,64,"bigheart",this.clickedheart,this);
 		ButtonHeart.scale.setTo(0.4,0.4);
+		ButtonHeart.anchor.setTo(0.5,0.5);
+
+		// Botón de tiempo
 		ButtonClock = game.add.button(205,60,"clock",this.clickedclock,this);
 		ButtonClock.scale.setTo(0.4,0.4);
-		playButton = game.add.button(160,320,"play",this.playTheGame,this);
-		musicButton = game.add.button(160,380,"music",this.musicVolume,this);
 		ButtonClock.anchor.setTo(0.5,0.5);
-		ButtonHeart.anchor.setTo(0.5,0.5);
-		playButton.anchor.setTo(0.5,0.5);
+
+		// Botones de play
+		playButton1 = game.add.button(60,320,"play1",this.playTheGame,this);
+		playButton1.anchor.setTo(0.5,0.5);
+		playButton1.scale.setTo(0.6,0.6);
+		playButton1.tint = 0x19E9A5;
+
+		playButton2 = game.add.button(160,320,"play1",this.playTimesTables,this);
+		playButton2.anchor.setTo(0.5,0.5);
+		playButton2.scale.setTo(0.6,0.6);
+		playButton2.tint = 0x637580;
+
+		playButton3 = game.add.button(260,320,"play1",this.playTheRace,this);
+		playButton3.anchor.setTo(0.5,0.5);
+		playButton3.scale.setTo(0.6,0.6);
+		playButton3.tint = 0xD53863;
+
+		// Botón de Hint
+		hintButton = game.add.button(60,380,"bulb",this.hintClicked,this);
+		hintButton.anchor.setTo(0.5,0.5);
+		//hintButton.scale.setTo(0.4,0.4);
+		
+		// Texto Hint
+		hintText = game.add.text(160,380, 'hint' , { font: "bold 22px Arial", fill: "#D53863", align: "center" });
+        hintText.anchor.set(0.5);
+        hintText.inputEnabled = true;
+        hintText.events.onInputUp.add(this.hintClicked, this, true);
+
+		// Botón de música
+		musicButton = game.add.button(260,380,"music",this.musicVolume,this);
 		musicButton.anchor.setTo(0.5,0.5);
 		musicButton.scale.setTo(0.4,0.4);
+
+		
+		// Texto número de vidas y duración
 		textolives = game.add.text(128, 64,"1", { font: "Bold 55px Arial", fill: "#FFFFFF", align: "center" });
 		textolives.anchor.set(0.5);
 		texto = game.add.text(266, 64,"5", { font: "Bold 55px Arial", fill: "#FFFFFF", align: "center" });
 		texto.anchor.set(0.5);
 		texto.text = timeTo;
 
+		// Texto banda threshold de números
 		threshold = game.add.sprite(maxnumber2+39, 130, 'heart');
 		threshold.anchor.set(1);
 		threshold.inputEnabled = true;
-		//  enableDrag parameters = (lockCenter, bringToTop, pixelPerfect, alphaThreshold, boundsRect, boundsSprite)
+		// enableDrag parameters = (lockCenter, bringToTop, pixelPerfect, alphaThreshold, boundsRect, boundsSprite)
 		var rectangle = new Phaser.Rectangle(40,130,223,24);
 		threshold.input.enableDrag(false,false,false,255,rectangle,null);
 		textothreshold = game.add.text(275, 120, maxnumber2, { font: "Bold 30px Arial", fill: "#FFFFFF", align: "right" });
 		textothreshold.anchor.set(0.5);
 		threshold.events.onDragStop.add(this.onDragStop, this);
-		//  Enable snapping. For the threshold sprite it will snap as its dragged around and on release.
-		//  The snap is set to every 1x1 pixels.
+		// Enable snapping. For the threshold sprite it will snap as its dragged around and on release.
+		// The snap is set to every 1x1 pixels.
 		threshold.input.enableSnap(1 , 1, false, true);
 
+		// Botones números (SelectedNumbers)
 		Button0 = game.add.button(0,152,"button0",this.clicked0,this,0,0,1);
 		Button1 = game.add.button(64,152,"button1",this.clicked1,this,0,0,1);
 		Button2 = game.add.button(128,152,"button2",this.clicked2,this,0,0,1);
@@ -61,12 +101,14 @@ gameOptions.prototype = {
 		Button7 = game.add.button(128,216,"button7",this.clicked7,this,0,0,1);
 		Button8 = game.add.button(192,216,"button8",this.clicked8,this,0,0,1);
 		Button9 = game.add.button(256,216,"button9",this.clicked9,this,0,0,1);
-		
+
+		// Botones de operaciones (Operators)		
 		Buttonplus = game.add.button(32,416,"buttonplus",this.clickedplus,this,0,0,1);
 		Buttonminus = game.add.button(96,416,"buttonminus",this.clickedminus,this,0,0,1);
 		Buttontimes = game.add.button(160,416,"buttontimes",this.clickedtimes,this,0,0,1);
 		Buttondivision = game.add.button(224,416,"buttondivision",this.clickeddivision,this,0,0,1);
-		
+
+		// Cambio de frames en los botones si están marcadas otras opciones		
 		if (Plus) Buttonplus.setFrames(1,1,0); else Buttonplus.setFrames(0,0,1);
 		if (Minus) Buttonminus.setFrames(1,1,0); else Buttonminus.setFrames(0,0,1);
 		if (Times) Buttontimes.setFrames(1,1,0); else Buttontimes.setFrames(0,0,1);
@@ -82,12 +124,16 @@ gameOptions.prototype = {
 		if (Seven) Button7.setFrames(1,1,0); else Button7.setFrames(0,0,1);
 		if (Eight) Button8.setFrames(1,1,0); else Button8.setFrames(0,0,1);
 		if (Nine) Button9.setFrames(1,1,0); else Button9.setFrames(0,0,1);
+
+		if (hintEnabled) hintText.fill = "#19E9A5";
 		
+		// newgamelives
 		if (newgamelives <= 0) {
 				newgamelives = 1;
 		}
 		textolives.text = newgamelives;
 		
+		// volumen del clik
 		keysound = game.add.audio('keysound');
 		keysound.volume = volumen;
 
@@ -95,6 +141,17 @@ gameOptions.prototype = {
 	onDragStop: function(){
 		maxnumber2 = threshold.x - 39;
 		textothreshold.text = maxnumber2;
+	},
+	hintClicked: function(){
+		if (!hintEnabled) {
+			hintEnabled=true;
+			hintText.fill = "#19E9A5";
+		}
+		else {
+			hintEnabled=false;
+			hintText.fill = "#D53863";
+        	//this.game.input.onDown.add(this.hintClicked, this);
+		}
 	},
 	clickedclock: function(){
 		timeTo += 3;
@@ -238,6 +295,7 @@ gameOptions.prototype = {
 			Division=false;
 		}
 	},
+	
 	musicVolume: function(){
 		if (musicButton.frame == 3) {
 			musicButton.frame = 0;
@@ -245,12 +303,14 @@ gameOptions.prototype = {
 		}
 		else {
 			musicButton.frame++;
-			volumen = volumen + 0,33;
+			volumen = Math.roundTo(volumen + 0.33);
 			keysound.play();
 			keysound.volume = volumen;
 		}
 	},
-	playTheGame: function(){
+	
+	updateOptions: function(){
+		// antes de iniciar el state "TheGame" actualizamos SelectedNumbers y Operators
 		SelectedNumbers=[];
 		if (One) SelectedNumbers.push(1);
 		if (Two) SelectedNumbers.push(2);
@@ -261,8 +321,28 @@ gameOptions.prototype = {
 		if (Seven) SelectedNumbers.push(7);
 		if (Eight) SelectedNumbers.push(8);
 		if (Nine) SelectedNumbers.push(9);
-		if (Plus || Minus || Times || Division) this.game.state.start("TheGame");
-	}
+		Operators=[];
+		if (Plus) Operators.push('+');
+		if (Minus) Operators.push('-');
+		if (Times) Operators.push('x');
+		if (Division) Operators.push('/');		
+	},
+	
+	playTheGame: function(){
+		this.updateOptions();
+		if (Operators!=[]) this.game.state.start("TheGame");
+	},
+	
+	playTimesTables: function(){
+		this.updateOptions();
+		if (Operators!=[]) this.game.state.start("TimesTables");
+	},
+	
+	playTheRace: function(){
+		this.updateOptions();
+		if (Operators!=[]) this.game.state.start("TheRace");
+	},
+	
 };
 
 function render() {

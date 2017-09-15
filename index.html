@@ -1,25 +1,46 @@
 <!doctype html>
 <html>
 	<head>
+		<meta charset="utf-8" />
+		<title>TimesTables</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+
     	<script src="phaser.min.js"></script>
     	<script src="src/boot.js"></script>
 		<script src="src/preload.js"></script>
 		<script src="src/gameoptions.js"></script>
 		<script src="src/gametitle.js"></script>
 		<script src="src/thegame.js"></script>
+		<script src="src/newlevel.js"></script>
+		<script src="src/therace.js"></script>
+		<script src="src/timestables.js"></script>
+		<script src="src/showresults.js"></script>	
 		<script src="src/gameover.js"></script>	
-    		<style>
-    			body{margin:0}
-    		</style>
+		<script src="src/levelcomplete.js"></script>
+		<script src="src/levels.js"></script>	
+		<style>
+			body {
+				padding: 0px;
+				margin: 0px;
+			}
+		</style>
 		<script>
 			(function() {
-				var game = new Phaser.Game(320, 480, Phaser.CANVAS, "game");
+				var game = new Phaser.Game(320, 533, Phaser.CANVAS, "game");
 				game.state.add("Boot",boot);
 				game.state.add("Preload",preload);
 				game.state.add("GameOptions",gameOptions);
 				game.state.add("GameTitle",gameTitle);
 				game.state.add("TheGame",theGame);
+				game.state.add("NewLevel",newLevel);
+				game.state.add("TheRace",theRace);
+				game.state.add("TimesTables",timesTables);
 				game.state.add("GameOver",gameOver);
+				game.state.add("ShowResults",showResults);
+				game.state.add("LevelComplete",levelComplete);
+				game.state.add("Levels",levels);
 				game.state.start("Boot");
 			})();    
 		</script>
