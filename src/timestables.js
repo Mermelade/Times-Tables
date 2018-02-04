@@ -12,10 +12,7 @@ var life=5;
 var lifeText;
 var questionTimer;
 var lifeTimer;
-var operator="+";
-var SelectedNumbers=[1];
-//var Operators=['+'];
-var volumen=1;
+//var volumen=1;
 var level=1;
 var text=["","","","","","","","","",""];
 // textId marca el texto en el foco
@@ -28,12 +25,12 @@ var timesTables = function(game){};
 timesTables.prototype = {
   	create: function(game){
   		//añadimos el fondo del juego. El escalado es manual.
-  		var background = this.game.add.image(0,0,"background");
-  		background.scale.setTo(0.18,0.18);
+  		var background = this.game.add.image(-375,0,"background");
+  		background.scale.setTo(0.56,0.56);
   		
   		//definimos variables score, life, topScore
   		score = 0;
-  		life = 49;
+  		life = 50;
   		//level = 6;
   		topScore = localStorage.getItem("topTablesScore")==null?0:localStorage.getItem("topTablesScore");
 		
@@ -59,7 +56,14 @@ timesTables.prototype = {
 		this.newQuestionShowedUp();
 
 		//comienza la cuenta atrás con el evento lifeTimer 	
-		lifeTimer = this.game.time.events.add(Phaser.Timer.SECOND * 1, this.timerSecond, this);
+		//lifeTimer = this.game.time.events.add(Phaser.Timer.SECOND * 1, this.timerSecond, this);
+		//comienza la cuenta atrás con el evento lifeTimer 	
+		//creo mi propio Timer para que no se mezcle con el genérico
+		lifeTimer = this.game.time.create(false);	
+		//añadimos un evento cíclico
+		lifeTimer.loop(Phaser.Timer.SECOND * 1, this.timerSecond, this);
+    	//it won't start automatically, allowing you to hook it to button events and the like.
+		lifeTimer.start();
 
 		//mostramos el resultado inicializado a "" en el centro de la pantalla
 		//textresult = game.add.text(game.world.centerX, game.world.centerY,"", { font: "95px Arial", fill: "#FFFFFF", align: "center" });
@@ -76,30 +80,32 @@ timesTables.prototype = {
         pauseText.events.onInputUp.add(this.pauseGame, this);
 
 		//mostramos el volumen (no funciona bien)
-		volumenText = game.add.text(96,32, volumen, { font: "bold 25px Arial", fill: "#FFFFFF", align: "right" });
-		volumenText.anchor.set(0.5);
+		//volumenText = game.add.text(96,32, volumen, { font: "bold 25px Arial", fill: "#FFFFFF", align: "right" });
+		//volumenText.anchor.set(0.5);
 
-		//mostramos los botones numéricos this.game.world.
-//		Button0 = this.game.add.button(0,352,"button0",this.clicked0,this,0,0,1,0);
-		Button0 = this.game.add.button(0,this.game.world.height-128,"button0",this.clicked0,this,0,0,1,0);
-		Button1 = this.game.add.button(64,352,"button1",this.clicked1,this,0,0,1,0);
-		Button2 = this.game.add.button(128,352,"button2",this.clicked2,this,0,0,1,0);
-		Button3 = this.game.add.button(192,352,"button3",this.clicked3,this,0,0,1,0);
-		Button4 = this.game.add.button(256,352,"button4",this.clicked4,this,0,0,1,0);
-		Button5 = this.game.add.button(0,416,"button5",this.clicked5,this,0,0,1,0);
-		Button6 = this.game.add.button(64,416,"button6",this.clicked6,this,0,0,1,0);
-		Button7 = this.game.add.button(128,416,"button7",this.clicked7,this,0,0,1,0);
-		Button8 = this.game.add.button(192,416,"button8",this.clicked8,this,0,0,1,0);
-		Button9 = this.game.add.button(256,416,"button9",this.clicked9,this,0,0,1,0);
+		// mostramos los botones numéricos
+		button = new Array();
+		var k=0;
+		for (i = 1.5; i > 0; i--) {
+			for (j = 0.5; j < 5; j++) {
+				// utilizamos el metodo .toString para que k recoja el valor "0" en lugar de ""
+				button[k] = game.add.text(j*(this.game.world.width/5),(this.game.world.height)-((this.game.world.width/5)*i), k.toString() , { font: "bold 64px Arial", fill: "#94C7F4", align: "center" });
+		        button[k].stroke = "#d4e8Fa";
+			    button[k].strokeThickness = 14;
+			    button[k].setShadow(2, 2, "#167CD6", 2, true, true);
+		        button[k].anchor.set(0.5);
+		        button[k].valor = k;
+		        button[k].inputEnabled = true;
+		        button[k].events.onInputDown.add(this.clicked, this);
+				k++;
+			}
+		}
 
-		// Si se acaba el tiempo reflejado en timeTo perdemos "youfailed"
-		//this.game.time.events.add(Phaser.Timer.SECOND * timeTo, this.youfailed, this);
-		
 		// Ponemos la música!
-		music = this.game.add.audio('music',0.1,true,true);
-		music.play();
-		//music.loopFull();
-		music.loop = true;
+		//music = this.game.add.audio('music',0.1,true,true);
+		//music.play();
+		////music.loopFull();
+		//music.loop = true;
 		
 		fx = this.game.add.audio('sfx');
 		fx.volume = volumen;
@@ -115,11 +121,11 @@ timesTables.prototype = {
 	},
 	
 	timerSecond: function(){
-		life -= 1;
+		life --;
 		lifeText.text = life;
 		//keysound.play();
 		if (life==0) this.timeOver();
-		else this.game.time.events.add(Phaser.Timer.SECOND * 1, this.timerSecond, this);
+		//else this.game.time.events.add(Phaser.Timer.SECOND * 1, this.timerSecond, this);
 	}, 
 	
 	pauseGame: function(){
@@ -142,7 +148,7 @@ timesTables.prototype = {
 			text1 = number1 + "x";
 			text2 = i;
 			text3 = "=" 
-			text[i] = this.game.add.text(this.game.world.centerX, this.game.world.centerY*1.4,"", { font: "35px Arial", fill: "#086A87", align: "center" });
+			text[i] = this.game.add.text(this.game.world.centerX, this.game.world.centerY*1.4,"", { font: "35px Arial", fill: "#FFFFFF", align: "center" });
 			text[i].anchor.set(0.5);
 			text[i].text = text1 + text2 + text3;
 			text[i].alpha = 0;
@@ -173,81 +179,29 @@ timesTables.prototype = {
 		}
 	},
 
-	clicked0: function(){
-		number = (number*10) + 0;
-		text[textId].text = text1 + textId + text3 + number;
-		this.checkresult();
-	},
-	clicked1: function(){
-		number = (number*10) + 1;
-		text[textId].text = text1 + textId + text3 + number;
-		this.checkresult();
-	},	
-	clicked2: function(){
-		number = (number*10) + 2;
-		text[textId].text = text1 + textId + text3 + number;
-		this.checkresult();
-	},	
-	clicked3: function(){
-		number = (number*10) + 3;
-		text[textId].text = text1 + textId + text3 + number;
-		this.checkresult();
-	},	
-	clicked4: function(){
-		number = (number*10) + 4;
-		text[textId].text = text1 + textId + text3 + number;
-		this.checkresult();
-	},	
-	clicked5: function(){
-		number = (number*10) + 5;
-		text[textId].text = text1 + textId + text3 + number;
-		this.checkresult();
-	},	
-	clicked6: function(){
-		number = (number*10) + 6;
-		text[textId].text = text1 + textId + text3 + number;
-		this.checkresult();
-	},	
-	clicked7: function(){
-		number = (number*10) + 7;
-		text[textId].text = text1 + textId + text3 + number;
-		this.checkresult();
-	},
-	clicked8: function(){
-		number = (number*10) + 8;
-		text[textId].text = text1 + textId + text3 + number;
-		this.checkresult();
-	},
-	clicked9: function(){
-		number = (number*10) + 9;
+	clicked: function(button){
+		button.fill = "#167CD6";
+		button.events.onInputUp.add(this.clickedUp, button, this);
+		number = (number*10) + button.valor;
 		text[textId].text = text1 + textId + text3 + number;
 		this.checkresult();
 	},
 	
+	clickedUp: function(button){
+		button.fill = "#94C7F4";
+	},
+
+
 	buttonsInputDissabled: function() {
-		Button0.inputEnabled = false;
-		Button1.inputEnabled = false;
-		Button2.inputEnabled = false;
-		Button3.inputEnabled = false;
-		Button4.inputEnabled = false;
-		Button5.inputEnabled = false;
-		Button6.inputEnabled = false;
-		Button7.inputEnabled = false;
-		Button8.inputEnabled = false;
-		Button9.inputEnabled = false;
+		for (i = 0; i < 10; i++) {
+			button[i].inputEnabled = false;
+		}
 	},
 	
 	buttonsInputEnabled: function () {
-		Button0.inputEnabled = true;
-		Button1.inputEnabled = true;
-		Button2.inputEnabled = true;
-		Button3.inputEnabled = true;
-		Button4.inputEnabled = true;
-		Button5.inputEnabled = true;
-		Button6.inputEnabled = true;
-		Button7.inputEnabled = true;
-		Button8.inputEnabled = true;
-		Button9.inputEnabled = true;
+		for (i = 0; i < 10; i++) {
+			button[i].inputEnabled = true;
+		}
 	},
 	
 	checkresult: function () {
@@ -263,7 +217,7 @@ timesTables.prototype = {
 		fx.play("charm");
 		score += 1;
 		scoreText.text = score;
-		text[textId].fill = "#3ADF00";
+		text[textId].fill = "#FFFFFF";
 		questionAnswered = true;
 		timeIsUp = false;
 		this.buttonsInputDissabled();

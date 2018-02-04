@@ -3,8 +3,8 @@ var gameOver = function(game){};
 gameOver.prototype = {
   	create: function(){
   		//añadimos el fondo. El escalado es manual.
-  		var background = this.game.add.image(0,0,"background");
-  		background.scale.set(0.18);
+  		var background = this.game.add.image(-30,0,"background");
+  		background.scale.set(0.56);
 		
 		//mostramos la imagen y el ribbon
   		var level_end = this.game.add.image(this.game.world.centerX+5,this.game.world.centerY,"level_end");

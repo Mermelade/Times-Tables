@@ -1,5 +1,3 @@
-var title = ["","Make 10", "Adittion within 10","Doubles to 10", "Halves to 10"];
-var mission = ["","You will be shown a number.\nHit the number that makes \nthe total up to ten.","You will be shown a sum.\nHit the number that has \nthe correct total.","Hit the number that is \ndouble the number shown","Hit the number that is \nhalf the number shown"];
 
 var showResults = function(game){};
 
