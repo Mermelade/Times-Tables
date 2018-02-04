@@ -35,6 +35,24 @@ var title = ["",
 "Times Tables x6-x12",
 "Times Tables x1-x12",
 
+"Times Tables x1",
+"Times Tables x2",
+"Times Tables x3",
+"Times Tables x4",
+"Times Tables x5",
+
+"Times Tables x6",
+"Times Tables x7",
+"Times Tables x8",
+"Times Tables x9",
+"Times Tables x10",
+
+"Times Tables x11",
+"Times Tables x12",
+"Times Tables x1-x6",
+"Times Tables x6-x12",
+"Times Tables x1-x12",
+
 ];
 
 var missionText = ["",
@@ -74,6 +92,24 @@ var missionText = ["",
 "You will be shown a calculation.\nHit the number that shows \nthe correct answer.",
 "You will be shown a calculation.\nHit the number that shows \nthe correct answer.",
 
+"You will be shown a calculation.\nHit the number that shows \nthe correct answer.",
+"You will be shown a calculation.\nHit the number that shows \nthe correct answer.",
+"You will be shown a calculation.\nHit the number that shows \nthe correct answer.",
+"You will be shown a calculation.\nHit the number that shows \nthe correct answer.",
+"You will be shown a calculation.\nHit the number that shows \nthe correct answer.",
+
+"You will be shown a calculation.\nHit the number that shows \nthe correct answer.",
+"You will be shown a calculation.\nHit the number that shows \nthe correct answer.",
+"You will be shown a calculation.\nHit the number that shows \nthe correct answer.",
+"You will be shown a calculation.\nHit the number that shows \nthe correct answer.",
+"You will be shown a calculation.\nHit the number that shows \nthe correct answer.",
+
+"You will be shown a calculation.\nHit the number that shows \nthe correct answer.",
+"You will be shown a calculation.\nHit the number that shows \nthe correct answer.",
+"You will be shown a calculation.\nHit the number that shows \nthe correct answer.",
+"You will be shown a calculation.\nHit the number that shows \nthe correct answer.",
+"You will be shown a calculation.\nHit the number that shows \nthe correct answer.",
+
 ];
 
 var text;
@@ -85,8 +121,13 @@ var levelTitle;
 var newLevel = function(game){};
 newLevel.prototype = {
   	create: function(game){
+  		
+  		// select background sprites 
+	  		if (level<16) levelbckgnd = 'hills'
+			else levelbckgnd = 'dunes';
+
 		//background hills
- 		background = this.game.add.tileSprite(0,0,this.game.width*50,this.game.height*3,'hills');
+ 		background = this.game.add.tileSprite(0,0,this.game.width*50,this.game.height*3, levelbckgnd);
   		background.scale.set(0.35);
   		//var level = 2;
 
