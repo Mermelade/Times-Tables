@@ -27,11 +27,8 @@ var theGame = function(game){};
 theGame.prototype = {
   	create: function(game){
   		//añadimos el fondo del juego. El escalado es manual.
-		//background = this.game.add.tileSprite(0,0,this.game.width*50,this.game.height*3,'hills');
-  		//background.scale.set(0.35);
-  		bckgrnd = 'bckgrnd'+ Math.floor(Math.random()*41).toString();
-		background = this.game.add.tileSprite(0,0,this.game.width*50,this.game.height,bckgrnd);
-  		background.scale.set(6);
+		background = this.game.add.tileSprite(0,0,this.game.width*50,this.game.height*3,'hills');
+  		background.scale.set(0.35);
 
   		//definimos variables score, lives, topScore
   		score = 0;

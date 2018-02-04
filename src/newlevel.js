@@ -35,24 +35,6 @@ var title = ["",
 "Times Tables x6-x12",
 "Times Tables x1-x12",
 
-"Times Tables x1",
-"Times Tables x2",
-"Times Tables x3",
-"Times Tables x4",
-"Times Tables x5",
-
-"Times Tables x6",
-"Times Tables x7",
-"Times Tables x8",
-"Times Tables x9",
-"Times Tables x10",
-
-"Times Tables x11",
-"Times Tables x12",
-"Times Tables x1-x6",
-"Times Tables x6-x12",
-"Times Tables x1-x12",
-
 ];
 
 var missionText = ["",
@@ -73,24 +55,6 @@ var missionText = ["",
 "Hit the number that is \ndouble the number shown",
 "Hit the number that is \nhalf the number shown",
 "You will be shown a sum.\nHit the number that has \nthe correct total.",
-
-"You will be shown a calculation.\nHit the number that shows \nthe correct answer.",
-"You will be shown a calculation.\nHit the number that shows \nthe correct answer.",
-"You will be shown a calculation.\nHit the number that shows \nthe correct answer.",
-"You will be shown a calculation.\nHit the number that shows \nthe correct answer.",
-"You will be shown a calculation.\nHit the number that shows \nthe correct answer.",
-
-"You will be shown a calculation.\nHit the number that shows \nthe correct answer.",
-"You will be shown a calculation.\nHit the number that shows \nthe correct answer.",
-"You will be shown a calculation.\nHit the number that shows \nthe correct answer.",
-"You will be shown a calculation.\nHit the number that shows \nthe correct answer.",
-"You will be shown a calculation.\nHit the number that shows \nthe correct answer.",
-
-"You will be shown a calculation.\nHit the number that shows \nthe correct answer.",
-"You will be shown a calculation.\nHit the number that shows \nthe correct answer.",
-"You will be shown a calculation.\nHit the number that shows \nthe correct answer.",
-"You will be shown a calculation.\nHit the number that shows \nthe correct answer.",
-"You will be shown a calculation.\nHit the number that shows \nthe correct answer.",
 
 "You will be shown a calculation.\nHit the number that shows \nthe correct answer.",
 "You will be shown a calculation.\nHit the number that shows \nthe correct answer.",
