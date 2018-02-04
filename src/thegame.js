@@ -15,9 +15,8 @@ var timeHint=3;
 var money=0;
 var lives=3;
 var newgamelives=3;
-var operator="+";
-var Operators=['+'];
-var volumen=1;
+//var operator="+";
+//var volumen=1;
 var pauseText;
 var background;
 var button0Text;var button1Text;var button2Text;var button3Text;var button4Text;
@@ -88,8 +87,8 @@ theGame.prototype = {
         textresult.events.onInputUp.add(this.deleteResult, this);
 
 		//mostramos los operadores seleccionados en gameoptions
-		for (i = 0; i < Operators.length+1; i++) {
-			switch(Operators[i]) {
+		for (i = 0; i < selectedOperators.length+1; i++) {
+			switch(selectedOperators[i]) {
 			    case '+':
 			        plusText = game.add.text(96,32, " + ", { font: "bold 25px Arial", fill: "#FFFFFF", align: "right" });
 			        plusText.anchor.set(0.5);
@@ -203,7 +202,7 @@ theGame.prototype = {
 	// Función que calcula las operaciones aleatoriamente de acuerdo a la configuración de gameoptions
 	onemoretry: function () {
 		//selecciono aleatoriamente un tipo de operación entre las posibles
-		operator=this.game.rnd.pick(Operators);
+		operator=this.game.rnd.pick(selectedOperators);
 		switch(operator) {
 		    case '+':
 				number1 = Math.floor(Math.random()*maxnumber2+offsetnumber2);
