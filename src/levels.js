@@ -1,9 +1,8 @@
-//var padlock_levels=["button_0stars","padlock","padlock","padlock","padlock","padlock","padlock","padlock","padlock","padlock","padlock","padlock","padlock","padlock","padlock"];
 var padlock_levels=[
 "button_0stars","button_0stars","button_0stars","button_0stars","button_0stars","button_0stars","button_0stars","button_0stars","button_0stars","button_0stars","button_0stars","button_0stars","button_0stars","button_0stars","button_0stars",
 "button_0stars","button_0stars","button_0stars","button_0stars","button_0stars","button_0stars","button_0stars","button_0stars","button_0stars","button_0stars","button_0stars","button_0stars","button_0stars","button_0stars","button_0stars",
-"button_0stars","padlock","padlock","padlock","padlock","padlock","padlock","padlock","padlock","padlock","padlock","padlock","padlock","padlock","padlock",
-"padlock","padlock","padlock","padlock","padlock","padlock","padlock","padlock","padlock","padlock","padlock","padlock","padlock","padlock","padlock",
+"button_0stars","padlock","padlock","padlock","button_0stars","padlock","padlock","padlock","padlock","padlock","button_0stars","padlock","padlock","button_0stars","padlock",
+"padlock","button_0stars","padlock","padlock","button_0stars","padlock","padlock","padlock","padlock","button_0stars","padlock","padlock","padlock","button_0stars","padlock",
 ];
 var page =["Easy","Medium","Hard"];
 var pageNumber=0;

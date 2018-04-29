@@ -21,7 +21,7 @@ levelComplete.prototype = {
 
  		
   		//stars
-  		if (score > 2) {
+  		if (fails < 6) {
 			var bigstar1 = this.game.add.image(this.game.world.centerX-79,this.game.world.centerY-70,"bigstar");
 			bigstar1.anchor.set(0.5);
 			bigstar1.scale.set (0);
@@ -31,14 +31,14 @@ levelComplete.prototype = {
 			if (padlock_levels[level-1] == "button_0stars") padlock_levels[level-1] = "button_1star";
 			// unlocked next level - como el array empieza en 0, el siguiente nivel es padlock[level] 
 			padlock_levels[level] = "button_0stars";
-			if (score > 4) {
+			if (fails < 3) {
 				var bigstar2 = this.game.add.image(this.game.world.centerX-1,this.game.world.centerY-97,"bigstar");
 				bigstar2.anchor.set(0.5);
 				bigstar2.scale.set (0);
 				this.game.add.tween(bigstar2.scale).to( { x: 0.5, y: 0.5 }, 500, Phaser.Easing.Elastic.None, true, 500);
 				this.game.add.tween(bigstar2).to( { angle: 360 }, 500, Phaser.Easing.Linear.None, true,500);
 				if (padlock_levels[level-1] == "button_0stars" || padlock_levels[level-1] == "button_1star") padlock_levels[level-1] = "button_2stars";
-				if (score > 7) {
+				if (fails < 1) {
 					var bigstar3 = this.game.add.image(this.game.world.centerX+77,this.game.world.centerY-70,"bigstar");
 					bigstar3.anchor.set(0.5);
 					bigstar3.scale.set (0);
@@ -78,7 +78,7 @@ levelComplete.prototype = {
 		var homeButtonComes = this.game.add.tween(homeButton).to( { alpha: 1 }, 4000, Phaser.Easing.Linear.None, true,1000);
 		homeButtonComes.onComplete.add(this.unlockButton, this);
 		
-		if (score > 2) {
+		if (fails < 6) {
 			var playButton = this.game.add.button(this.game.world.centerX*1.6,this.game.world.centerY*1.65,"play",this.playTheRace,this,1,0,2);
 		} else {
 			playButton = this.game.add.image(this.game.world.centerX*1.6,this.game.world.centerY*1.65,"play",3);
